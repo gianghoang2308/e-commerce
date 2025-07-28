@@ -1,0 +1,47 @@
+/* contact.css */
+.contact-page {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+    .contact-page h2.heading-section {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .contact-page .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: none;
+        font-size: 14px;
+    }
+
+    .contact-page .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .contact-page .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .contact-page .dbox {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+        .contact-page .dbox .icon {
+            font-size: 24px;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .contact-page .dbox .text span {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }

@@ -1,0 +1,77 @@
+﻿@model E.CommerceProject.Models.Brand
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+}
+
+<style>
+    form {
+        margin-left: 60px;
+        margin-top: 100px;
+    }
+</style>
+
+
+<div class="container">
+    <h2>Tạo mới</h2>
+    <div class="card">
+        <form asp-controller="Brand" asp-action="Edit" enctype="multipart/form-data">
+            <div class="table-title" style="margin-top:20px">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2 style="color:black"></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="btn btn-primary" asp-controller="Brand" asp-action="Index"><b>Quay lại</b><i class='fas'>&#xf3e5;</i></a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <b>Lưu lại</b> </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" asp-for="Id" hidden>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Tên thương hiệu</b></label>
+                <input type="text" class="form-control" asp-for="BrandName" placeholder="Nhập vào tên thương hiệu">
+                <span asp-validation-for="BrandName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="LogoFile" class="form-label"><b>Logo thương hiệu</b></label>
+                <img src="@Url.Content("~/uploads/brandlogos/" + Model.Logo)" alt="@Model.BrandName error" title="@Model.BrandName" width="100" />
+                <input type="hidden" name="oldLogo" value="@Model.Logo" />
+                <input type="file" class="form-control" name="Logo" id="LogoFile" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Mô tả về thương hiệu</b></label>
+                <textarea type="text" class="form-control" asp-for="Description" placeholder="Nhập vào mô tả thương hiệu"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+
+            <!-- Nút gửi -->
+            <div class="table-title" style="margin-top:20px">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2 style="color:black"></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="btn btn-primary" asp-controller="Brand" asp-action="Index"> <b>Quay lại</b> <i class='fas'>&#xf3e5;</i></a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <b>Lưu lại</b> </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+
+

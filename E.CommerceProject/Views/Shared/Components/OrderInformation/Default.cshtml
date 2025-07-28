@@ -1,0 +1,32 @@
+﻿@model List<E.CommerceProject.Models.CartItem>
+
+<div class="order-summary">
+    <div class="order-col">
+        <div><strong>PRODUCT</strong></div>
+        <div><strong>TOTAL</strong></div>
+    </div>
+
+    <div class="order-products">
+        @foreach (var item in Model)
+        {
+            <div class="order-col">
+                <div>@item.Quantity x @item.Name</div>
+                <div>@String.Format("{0}", item.TotalPrice) VNĐ</div>
+            </div>
+        }
+    </div>
+
+    <div class="order-col">
+        <div>Shipping</div>
+        <div><strong>FREE</strong></div>
+    </div>
+
+    <div class="order-col">
+        <div><strong>Tổng tiền</strong></div>
+        <div>
+            <strong class="order-total">
+                @String.Format("{0}", Model.Sum(p => p.TotalPrice)) VNĐ
+            </strong>
+        </div>
+    </div>
+</div>

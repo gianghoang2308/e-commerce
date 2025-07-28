@@ -1,0 +1,166 @@
+﻿@model E.CommerceProject.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+}
+
+<style>
+    form {
+        margin-left: 60px;
+        margin-top: 60px;
+        margin-bottom:60px;
+    }
+</style>
+
+
+<div class="container">
+    <h2>Tạo mới</h2>
+    <div class="card">
+        <form asp-controller="Product" asp-action="Create" enctype="multipart/form-data">
+            <div class="table-title" style="margin-top:20px">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2 style="color:black"></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="btn btn-primary" asp-controller="Product" asp-action="Index"><b>Quay lại</b><i class='fas'>&#xf3e5;</i></a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <b>Lưu lại</b> </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" asp-for="Id" hidden>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Tên sản phẩm</b></label>
+                <input type="text" class="form-control" asp-for="Name" placeholder="Nhập vào tên sản phẩm">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Ảnh sản phẩm</b></label>
+                <input type="file" class="form-control" asp-for="MainImage" placeholder="Nhập vào ảnh sản phẩm">
+                <span asp-validation-for="MainImage" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Giá sản phẩm</b></label>
+                <input type="number" step="0.1" class="form-control" asp-for="Price" placeholder="Nhập vào Giá sản phẩm">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Giá khuyến mãi</b></label>
+                <input type="number" step="0.1" class="form-control" asp-for="SalePrice" placeholder="Nhập vào Giá sản phẩm">
+                <span asp-validation-for="SalePrice" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Mô tả sản phẩm</b></label>
+                <textarea type="text" class="form-control" asp-for="Description" placeholder="Nhập vào mô tả sản phẩm"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label asp-for="Status">Trạng thái</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="true" selected>Vẫn bán</option>
+                    <option value="false" selected>Dừng bán</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label asp-for="CategoryId">Danh mục</label>
+                <select asp-for="CategoryId" class="form-control">
+                    @foreach (var category in ViewBag.CategoryList)
+                    {
+                       <option value="@category.Id">
+                            @category.Name
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label asp-for="BrandId">Nhãn hiệu</label>
+                <select asp-for="BrandId" class="form-control">
+                    @foreach (var brand in ViewBag.BrandList)
+                    {
+                        <option value="@brand.Id">
+                            @brand.BrandName
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label asp-for="SupplierId">Nhà phân phối</label>
+                <select asp-for="SupplierId" class="form-control">
+                    @foreach (var supplier in ViewBag.SupplierList)
+                    {
+                        <option value="@supplier.Id">
+                            @supplier.Name
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label asp-for="ColorId">Màu sắc sản phẩm</label>
+                <select asp-for="ColorId" class="form-control">
+                    @foreach (var color in ViewBag.ColorList)
+                    {
+                        <option value="@color.Id">
+                            @color.ColorName
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="ColorId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label asp-for="AssembleInId">Lắp ráp tại</label>
+                <select asp-for="AssembleInId" class="form-control">
+                    @foreach (var assemble in ViewBag.AssembleInList)
+                    {
+                        <option value="@assemble.Id">
+                            @assemble.Country
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="AssembleInId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="" class="form-label"><b>Tổng số lượng nhập vào</b></label>
+                <input type="number" class="form-control" asp-for="QuantityTotal" placeholder="tổng số lượng nhập vào">
+                <span asp-validation-for="QuantityTotal" class="text-danger"></span>
+            </div>
+            <!-- Nút gửi -->
+            <div class="table-title" style="margin-top:20px">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2 style="color:black"></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a class="btn btn-primary" asp-controller="Product" asp-action="Index"> <b>Quay lại</b> <i class='fas'>&#xf3e5;</i></a>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> <b>Lưu lại</b> </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

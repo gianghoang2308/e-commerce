@@ -1,0 +1,65 @@
+﻿@model E.CommerceProject.Models.Comment
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Bình Luận";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+}
+<style>
+    .container
+    {
+        margin-top:100px;
+    }
+    .form-group
+    {
+        margin:20px;
+    }
+</style>
+
+
+<div class="container">
+    <h2>Chỉnh sửa Bình Luận cho sản phẩm: @ViewBag.Product?.Name</h2>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="form-group">
+            <label asp-for="FullName">Họ và tên</label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email">Địa chỉ email</label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CommentText">Nội dung comment</label>
+            <textarea asp-for="CommentText" class="form-control"></textarea>
+            <span asp-validation-for="CommentText" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Rate"></label>
+            <select asp-for="Rate" class="form-control">
+                <option value="">--Chọn đánh giá--</option>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i" selected="@(Model.Rate == i ? "selected" : "")">@i</option>
+                }
+            </select>
+            <span asp-validation-for="Rate" class="text-danger"></span>
+        </div>
+
+       <div class="form-group">
+            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+            <a class="btn btn-primary" asp-controller="Comment" asp-action="Index"> <b>Quay lại</b> <i class='fas'>&#xf3e5;</i></a>
+       </div>
+    </form>
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

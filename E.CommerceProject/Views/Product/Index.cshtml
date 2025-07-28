@@ -1,0 +1,181 @@
+﻿@model X.PagedList.IPagedList<E.CommerceProject.Models.Product>
+@using X.PagedList.Mvc.Core;
+@{
+	Layout = "~/Views/Shared/_MLayout.cshtml";
+}
+
+
+<!--start page wrapper -->
+<!--Search form-->
+
+<div class="page-wrapper">
+	<div class="page-content">
+		<!--breadcrumb-->
+		<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+			<div class="ms-auto">
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary">Settings</button>
+					<button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">
+						<span class="visually-hidden">Toggle Dropdown</span>
+					</button>
+					<div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">
+						<a class="dropdown-item" href="javascript:;">Action</a>
+						<a class="dropdown-item" href="javascript:;">Another action</a>
+						<a class="dropdown-item" href="javascript:;">Something else here</a>
+						<div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end breadcrumb-->
+		<h6 class="mb-0 text-uppercase">Sản Phẩm</h6>
+		<hr />
+		<div class="card">
+			<div class="card-body">
+				<div class="table-responsive">
+					<div class="table-title">
+						<div class="row">
+							<div class="col-sm-6">
+							</div>
+							<div class="col-sm-6">
+								<div class="col-sm-6 text-end">
+									<a asp-controller="Product" asp-action="Create" class="btn btn-success">
+										<i class="fa-solid fa-circle-plus"></i> <b>Thêm mới</b>
+									</a>
+									<a asp-controller="Product" asp-action="Delete" class="btn btn-danger">
+										<i class="fa-solid fa-trash"></i> <b>Xóa</b>
+									</a>
+									<a asp-controller="Product" asp-action="Index" class="btn btn-primary">
+										<i class="fa-solid fa-arrows-rotate"></i> <b>Tải lại trang</b>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<table id="example" class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>
+									<span class="custom-checkbox">
+										<!-- "Select All" checkbox -->
+										<input type="checkbox" id="selectAll" />
+										<label for="selectAll"></label>
+									</span>
+								</th>
+								<th>Id</th>
+								<th>Tên sản phẩm</th>
+								<th>Ảnh sản phẩm</th>
+								<th>Phân loại</th>
+								<th>Nhãn hiệu</th>
+								<th>Nhà phân phối</th>
+								<th>Màu sắc</th>
+								<th>Nơi lắp ráp</th>
+								<th>Giá</th>
+								<th>Giá sale</th>
+								<th>Mô tả</th>
+								<th>Tình trạng</th>
+								<th>Số lượng nhập</th>
+								<th>Ngày tạo</th>
+								<th>Ngày cập nhật</th>
+								<th>Cài đặt</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var product in Model)
+							{
+								<tr>
+									<td>
+										<span class="custom-checkbox">
+											<!-- Individual checkboxes -->
+											<input type="checkbox" class="checkboxItem" id="checkbox_@product.Id" name="options[]" value="@product.Id" />
+											<label for="checkbox_@product.Id"></label>
+										</span>
+									</td>
+									<td>@product.Id</td>
+									<td>@product.Name</td>
+									<td>
+										<img src="@Url.Content("~/uploads/images/products/" + product.MainImage)" alt="@product.Name error" title="@product.Name" width="100" />
+									</td>
+									<td>@product.Category.Name</td>
+									<td>@product.Brand.BrandName</td>
+									<td>@product.Supplier.Name</td>
+									<td>@product.Color.ColorName</td>
+									<td>@product.AssembleIn.Country</td>
+									<td>@product.Price</td>
+									<td>@(product.Price * product.SalePrice)</td>
+									<td>@product.Description</td>
+									<td>@if(product.Status == true)
+									{
+										<p>Vẫn bán</p>
+									}
+									else
+									{
+										<p>Không bán nữa</p>
+									}
+									</td>
+									<td>@product.QuantityTotal</td>
+									<td>@product.CreateTime.ToString("yyyy-MM-dd")</td>
+									<td>@product.UpdateTime.ToString("yyyy-MM-dd")</td>
+									<td colspan="2" style="text-align: center">
+										<a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning" title="Sửa">
+											<i class="fa-solid fa-pen-to-square"></i> Sửa
+										</a>
+										<a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger" title="Xóa">
+											<i class="fa-solid fa-trash"></i> Xóa
+										</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+					<div class="d-flex justify-content-center mt-3">
+						<div class="clearfix">
+							<ul class="pagination">
+								<li class="page-item">@Html.PagedListPager(Model, pageNumber => Url.Action("Index", "Product", new { pageNumber = pageNumber }))</li>
+							</ul>
+						</div>
+					</div>
+					<div class="table-title">
+						<div class="row">
+							<div class="col-sm-6">
+							</div>
+							<div class="col-sm-6">
+								<div class="col-sm-6 text-end">
+									<a asp-controller="Product" asp-action="Create" class="btn btn-success">
+										<i class="fa-solid fa-circle-plus"></i> <b>Thêm mới</b>
+									</a>
+									<a asp-controller="Product" asp-action="Delete" class="btn btn-danger">
+										<i class="fa-solid fa-trash"></i> <b>Xóa</b>
+									</a>
+									<a asp-controller="Product" asp-action="Index" class="btn btn-primary">
+										<i class="fa-solid fa-arrows-rotate"></i> <b>Tải lại trang</b>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end page wrapper -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function() {
+		// Select all checkboxes when "Select All" checkbox is clicked
+		$("#selectAll").click(function() {
+			$(".checkboxItem").prop("checked", this.checked);  // Check all checkboxes
+		});
+
+		// Update the "Select All" checkbox state based on individual checkboxes
+		$(".checkboxItem").click(function() {
+			// If all checkboxes are checked, check the "Select All" checkbox
+			$("#selectAll").prop("checked", $(".checkboxItem:checked").length === $(".checkboxItem").length);
+		});
+	});
+</script>
+
+<h1>Index</h1>
+

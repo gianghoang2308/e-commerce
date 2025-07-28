@@ -1,0 +1,75 @@
+﻿@model List<E.CommerceProject.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    float grandTotal = Model.Sum(item => item.TotalPrice);
+}
+
+<h2 class="mb-4">🛒 Giỏ hàng của bạn</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Giỏ hàng của bạn đang trống.</div>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá gốc</th>
+                <th>Giảm (%)</th>
+                <th>Giá sau giảm</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Url.Content("~/uploads/images/products/" + item.MainImage)"
+                             alt="@item.Name"
+                             title="@item.Name"
+                             width="80" />
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("N0") đ</td>
+                    <td>@item.SalePrice</td>
+                    <td>@item.FinalPrice.ToString("N0") đ</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.TotalPrice.ToString("N0") đ</td>
+                    <td>
+                        <a asp-action="RemoveFromCart" asp-route-id="@item.ProductId" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i> Xoá
+                        </a>
+                        <a asp-controller="BillingAddress" asp-action="Checkout" asp-route-id="@item.ProductId" class="btn btn-success">
+                            <i class="fa fa-credit-card"></i> Thanh toán cho sản phẩm
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-end"><strong>Tổng cộng:</strong></td>
+                <td colspan="2"><strong>@grandTotal.ToString("N0") đ</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="d-flex justify-content-between mt-3">
+        <a asp-action="ClearCart" class="btn btn-warning">
+            <i class="fa fa-trash"></i> Xoá toàn bộ
+        </a>
+
+        <a asp-controller="BillingAddress" asp-action="Checkout" class="btn btn-success">
+            <i class="fa fa-credit-card"></i> Thanh toán cho sản phẩm
+        </a>
+    </div>
+}

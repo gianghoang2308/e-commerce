@@ -1,0 +1,210 @@
+﻿@using E.CommerceProject.Models
+@model BillingAddress
+@{
+	ViewData["Title"] = "SmartPhone";
+	Layout = "_Layout";
+}
+<!-- BREADCRUMB -->
+<div id="breadcrumb" class="section">
+	<!-- container -->
+	<div class="container">
+		
+
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="breadcrumb-header">Checkout</h3>
+				<ul class="breadcrumb-tree">
+					<li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+					<li class="active"><a asp-controller="BillingAddress" asp-action="Checkout">Thông tin giao hàng</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<form asp-controller="BillingAddress" asp-action="Checkout" method="post" enctype="multipart/form-data">
+			<div class="row">
+				<div class="col-md-7">
+					<!-- Billing Details -->
+					<div class="billing-details">
+						<div class="section-title">
+							<h3 class="title">Thông tin thanh toán</h3>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Họ</b></label>
+							<input class="input" type="text" asp-for="BillingAddressFirstName" placeholder="Nhập vào họ" />
+							<span asp-validation-for="BillingAddressFirstName" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Tên</b></label>
+							<input class="input" type="text" asp-for="BillingAddressLastName" placeholder="Nhập vào tên">
+							<span asp-validation-for="BillingAddressLastName" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Email</b></label>
+							<input class="input" type="email" asp-for="BillingAddressEmail" placeholder="Nhập vào email">
+							<span asp-validation-for="BillingAddressEmail" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Địa chỉ</b></label>
+							<input class="input" type="text" asp-for="BillingAddressAddress" placeholder="Nhập vào quận/huyện">
+							<span asp-validation-for="BillingAddressAddress" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Địa chỉ</b></label>
+							<input class="input" type="text" asp-for="BillingAddressCity" placeholder="Nhập vào thành phố">
+							<span asp-validation-for="BillingAddressCity" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Địa chỉ</b></label>
+							<input class="input" type="text" asp-for="BillingAddressCountry" placeholder="Nhập vào quốc gia">
+							<span asp-validation-for="BillingAddressCountry" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Mã bưu chính</b></label>
+							<input class="input" type="text" asp-for="BillingAddressZipCode" placeholder="Mã bưu chính">
+							<span asp-validation-for="BillingAddressZipCode" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label class="form-label"><b>Số điện thoại</b></label>
+							<input class="input" type="tel" asp-for="BillingAddressTelephone" placeholder="Telephone">
+							<span asp-validation-for="BillingAddressTelephone" class="text-danger"></span>
+						</div>
+						
+					</div>
+					<!-- /Billing Details -->
+					<!-- Shiping Details -->
+					<div class="shiping-details">
+						<div class="section-title">
+							<h3 class="title">Địa chỉ giao hàng</h3>
+						</div>
+						<div class="input-checkbox">
+							<input type="checkbox" id="shiping-address">
+							<label for="shiping-address">
+								<span></span>
+								Giao tới địa chỉ khác
+							</label>
+							<div class="caption">
+								<div class="form-group">
+									<label class="form-label"><b>Họ</b></label>
+									<input class="input" type="text" asp-for="ShippingAddressFirstName" placeholder="Nhập vào họ" />
+									<span asp-validation-for="ShippingAddressFirstName" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><b>Tên</b></label>
+									<input class="input" type="text" asp-for="ShippingAddressLastName" placeholder="Nhập vào tên">
+									<span asp-validation-for="ShippingAddressLastName" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><b>Email</b></label>
+									<input class="input" type="email" asp-for="ShippingAddressEmail" placeholder="Nhập vào email">
+									<span asp-validation-for="ShippingAddressEmail" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><b>Địa chỉ</b></label>
+									<input class="input" type="text" asp-for="ShippingAddressAddress" placeholder="Nhập vào quận/huyện">
+									<span asp-validation-for="ShippingAddressAddress" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><b>Quốc gia</b></label>
+									<input class="input" type="text" asp-for="ShippingAddressCity" placeholder="Nhập vào thành phố">
+									<span asp-validation-for="ShippingAddressCity" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><b>Địa chỉ</b></label>
+									<input class="input" type="text" asp-for="ShippingAddressCountry" placeholder="Nhập vào quốc gia">
+									<span asp-validation-for="ShippingAddressCountry" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><b>Mã bưu chính</b></label>
+									<input class="input" type="text" asp-for="ShippingAddressZipCode" placeholder="Mã bưu chính">
+									<span asp-validation-for="ShippingAddressZipCode" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<div class="form-group">
+										<label class="form-label"><b>Số điện thoại</b></label>
+										<input class="input" type="tel" asp-for="ShippingAddressTelephone" placeholder="Telephone">
+										<span asp-validation-for="ShippingAddressTelephone" class="text-danger"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Shiping Details -->
+					<!-- Order notes -->
+					<div class="order-notes">
+						<div class="form-group">
+							<label class="form-label"><b>Ghi chú</b></label>
+							<textarea class="input" asp-for="OrderNote" placeholder="Ghi chú"></textarea>
+							<span asp-validation-for="OrderNote" class="text-danger"></span>
+						</div>
+					</div>
+					<!-- /Order notes -->
+				</div>
+
+				<!-- Order Details -->
+				<div class="col-md-5 order-details">
+					<div class="section-title text-center">
+						<h3 class="title">Thông tin đơn hàng</h3>
+					</div>
+					<!-- Gọi ViewComponent hiển thị thông tin giỏ hàng -->
+					@await Component.InvokeAsync("OrderInformation")
+
+
+					<div class="payment-method">
+						<div class="input-radio">
+							<input type="radio" name="payment" id="payment-1">
+							<label for="payment-1">
+								<span></span>
+								Direct Bank Transfer
+							</label>
+							<div class="caption">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							</div>
+						</div>
+						<div class="input-radio">
+							<input type="radio" name="payment" id="payment-2">
+							<label for="payment-2">
+								<span></span>
+								Cheque Payment
+							</label>
+							<div class="caption">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							</div>
+						</div>
+						<div class="input-radio">
+							<input type="radio" name="payment" id="payment-3">
+							<label for="payment-3">
+								<span></span>
+								Paypal System
+							</label>
+							<div class="caption">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+							</div>
+						</div>
+					</div>
+					<div class="input-checkbox">
+						<input type="checkbox" id="terms">
+						<label for="terms">
+							<span></span>
+							I've read and accept the <a href="#">terms & conditions</a>
+						</label>
+					</div>
+					<button type="submit" class="primary-btn order-submit" style="text-align:center">Đặt hàng</button>
+				</div>
+				<!-- /Order Details -->
+			</div>
+		</form>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->

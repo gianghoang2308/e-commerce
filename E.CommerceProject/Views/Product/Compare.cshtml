@@ -1,0 +1,182 @@
+﻿@using E.CommerceProject.ViewModels
+@model CompareProductViewModel
+
+@{
+    ViewData["Title"] = "So sánh sản phẩm";
+    Layout = "_Layout";
+}
+@if (TempData["CompareMessage"] != null)
+{
+    <div class="alert alert-info text-center">@TempData["CompareMessage"]</div>
+}
+
+<h2 class="text-center mb-4">So sánh sản phẩm</h2>
+
+@if (Model != null && Model.Product1 != null)
+{
+    <table class="table table-bordered text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>Thông tin</th>
+                <th>@Model.Product1.Name</th>
+                <th>
+                    @if (Model.Product2 != null)
+                    {
+                        @Model.Product2.Name
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa chọn</span>
+                    }
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ảnh</td>
+                <td>
+                    <img src="~/uploads/images/products/@Model.Product1.MainImage" alt="@Model.Product1.Name" width="150" />
+                </td>
+                <td>
+                    @if (Model.Product2 != null)
+                    {
+                        <img src="~/uploads/images/products/@Model.Product2.MainImage" alt="@Model.Product2.Name" width="150" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa chọn</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Giá gốc</td>
+                <td>@($"{Model.Product1.Price:N0} ₫")</td>
+                <td>
+                    @if (Model.Product2 != null)
+                    {
+                        @($"{Model.Product2.Price:N0} ₫")
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa chọn</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Giá khuyến mãi</td>
+                <td>@($"{Model.Product1.Price * Model.Product1.SalePrice:N0} ₫")</td>
+                <td>
+                    @if (Model.Product2 != null)
+                    {
+                        @($"{Model.Product2.Price * Model.Product2.SalePrice:N0} ₫")
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa chọn</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Danh mục</td>
+                <td>@Model.Product1.Category?.Name</td>
+                <td>@(Model.Product2?.Category?.Name ?? "<span class='text-muted'>Chưa chọn</span>")</td>
+            </tr>
+            <tr>
+                <td>Thương hiệu</td>
+                <td>@Model.Product1.Brand?.BrandName</td>
+                <td>@(Model.Product2?.Brand?.BrandName ?? "<span class='text-muted'>Chưa chọn</span>")</td>
+            </tr>
+            <tr>
+                <td>Nhà cung cấp</td>
+                <td>@Model.Product1.Supplier?.Name</td>
+                <td>@(Model.Product2?.Supplier?.Name ?? "<span class='text-muted'>Chưa chọn</span>")</td>
+            </tr>
+            <tr>
+                <td>Màu sắc</td>
+                <td>@Model.Product1.Color?.ColorName</td>
+                <td>@(Model.Product2?.Color?.ColorName ?? "<span class='text-muted'>Chưa chọn</span>")</td>
+            </tr>
+            <tr>
+                <td>Lắp ráp tại</td>
+                <td>@Model.Product1.AssembleIn?.Country</td>
+                <td>@(Model.Product2?.AssembleIn?.Country ?? "<span class='text-muted'>Chưa chọn</span>")</td>
+            </tr>
+            <tr>
+                <td>Số lượng</td>
+                <td>@Model.Product1.QuantityTotal</td>
+                <td>
+                    @if (Model.Product2 != null)
+                    {
+                        @Model.Product2.QuantityTotal
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa chọn</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Mô tả</td>
+                <td style="width:1000px">@Html.Raw(Model.Product1.Description)</td>
+                <td style="width:1000px">
+                    @if (Model.Product2 != null)
+                    {
+                        @Html.Raw(Model.Product2.Description)
+                    }
+                    else
+                    {
+                        <span class="text-muted">Chưa chọn</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button class="btn btn-outline-danger remove-compare"
+                            data-id="@Model.Product1.Id"
+                            onclick="return confirm('Bạn có chắc muốn xoá sản phẩm này không?')">
+                        Xoá @Model.Product1.Name
+                    </button>
+                </td>
+                <td>
+                    @if (Model.Product2 != null)
+                    {
+                        <button class="btn btn-outline-danger remove-compare"
+                                data-id="@Model.Product2.Id"
+                                onclick="return confirm('Bạn có chắc muốn xoá sản phẩm này không?')">
+                            Xoá @Model.Product2.Name
+                        </button>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-danger" asp-controller="Home" asp-action="Index">Quay lại</a>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">Không thể hiển thị thông tin sản phẩm để so sánh.</div>
+}
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.remove-compare').forEach(button => {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                fetch('/Product/RemoveCompare?id=' + id, {
+                    method: 'POST'
+                })
+                .then(res => {
+                    if (res.redirected) {
+                        window.location.href = res.url;
+                    } else {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+}

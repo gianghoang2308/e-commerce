@@ -1,0 +1,231 @@
+﻿@using Newtonsoft.Json
+
+<!-- HEADER -->
+<header>
+	<!-- TOP HEADER -->
+	<div id="top-header">
+		<div class="container">
+			<ul class="header-links pull-left">
+				<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+				<li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+				<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+			</ul>
+			<ul class="header-links pull-right">
+				<li class="dropdown user-dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-user-o"></i> Tài khoản của tôi <span class="caret"></span>
+					</a>
+
+					<ul class="dropdown-menu" style="min-width: 260px; padding: 15px;">
+						@if (User.Identity.IsAuthenticated)
+						{
+							var avatarClaim = User.Claims.FirstOrDefault(c => c.Type == "avatar");
+							var avatarUrl = avatarClaim?.Value ?? "/images/default-avatar.png";
+
+							if (!avatarUrl.StartsWith("/uploads") && !avatarUrl.StartsWith("http"))
+							{
+								avatarUrl = "/uploads/avatars/" + avatarUrl;
+							}
+
+							<li class="text-center">
+								<img src="@avatarUrl"
+									 style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;"
+									 onerror="this.src='/images/default-avatar.png'" alt="Avatar" />
+								<br />
+								<strong>@User.Claims.FirstOrDefault(c => c.Type == "account")?.Value</strong><br />
+								<strong>@User.Claims.FirstOrDefault(c => c.Type == "fullname")?.Value</strong><br />
+								<small>ID: @User.Claims.FirstOrDefault(c => c.Type == "id")?.Value</small>
+								<hr />
+							</li>
+
+							<li>
+								<i class="fa fa-envelope"></i>@User.Claims.FirstOrDefault(c => c.Type == "email")?.Value
+							</li>
+							<li>
+								<i class="fa fa-phone"></i>@User.Claims.FirstOrDefault(c => c.Type == "phone")?.Value
+							</li>
+							<li class="divider"></li>
+							<li>
+								@if (User.Identity.IsAuthenticated)
+								{
+									if (User.IsInRole("AdminRole"))
+									{
+										<form asp-controller="Admin" asp-action="Logout" method="post" style="margin: 0;">
+											<button type="submit" class="btn btn-danger btn-block">
+												<i class="fa fa-sign-out"></i> Đăng xuất Admin
+											</button>
+										</form>
+									}
+									else if (User.IsInRole("UserRole"))
+									{
+										<form asp-controller="User" asp-action="Logout" method="post" style="margin: 0;">
+											<button type="submit" class="btn btn-danger btn-block">
+												<i class="fa fa-sign-out"></i> Đăng xuất User
+											</button>
+										</form>
+									}
+								}
+							</li>
+
+						}
+						else
+						{
+							<li>
+								<a asp-controller="Admin" asp-action="Login" class="btn btn-primary btn-block">
+									<i class="fa fa-sign-in"></i> Đăng nhập Admin
+								</a>
+							</li>
+							<li style="margin-top: 5px;">
+								<a asp-controller="User" asp-action="Login" class="btn btn-success btn-block">
+									<i class="fa fa-user"></i> Đăng nhập User
+								</a>
+							</li>
+						}
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /TOP HEADER -->
+	<!-- MAIN HEADER -->
+	<div id="header">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- LOGO -->
+				<div class="col-md-3">
+					<div class="header-logo">
+						<a href="#" class="logo">
+							<img src="./img/logo.png" alt="">
+						</a>
+					</div>
+				</div>
+				<!-- /LOGO -->
+				<!-- SEARCH BAR -->
+				<div class="col-md-6">
+					<div class="header-search">
+						<!-- Thay đổi action trỏ đến SearchController -->
+						<form method="get" asp-controller="Search" asp-action="Index">
+							<input class="input" name="searchTerm" placeholder="Tìm kiếm sản phẩm..." value="@Context.Request.Query["searchTerm"]">
+							<button type="submit" class="search-btn">Tìm kiếm</button>
+						</form>
+					</div>
+				</div>
+
+				<!-- /SEARCH BAR -->
+				<!-- ACCOUNT -->
+				<div class="col-md-3 clearfix">
+					<div class="header-ctn">
+						<!-- Wishlist -->
+						@{
+							var userIdClaim = Context.User.Claims.FirstOrDefault(c => c.Type == "id");
+							int? userId = userIdClaim != null ? int.Parse(userIdClaim.Value) : (int?)null;
+						}
+						<div>
+							<a asp-controller="WishList" asp-action="ViewWishList" asp-route-userId="@userId">
+								<i class="fa fa-heart-o"></i>
+								<span>Danh sách sản phẩm yêu thích</span>
+								<div class="qty">@ViewBag.WishListCount</div>
+							</a>
+						</div>
+
+						<!-- /Wishlist -->
+						<!-- Cart -->
+						<div class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+								<i class="fa fa-shopping-cart"></i>
+								<span>Your Cart</span>
+								<div class="qty">3</div>
+							</a>
+							@{
+								var cart = Context.Session.GetString("Cart");
+								var cartItems = !string.IsNullOrEmpty(cart)
+								? JsonConvert.DeserializeObject<List<CartItem>>(cart)
+								: new List<CartItem>();
+
+								int totalQuantity = cartItems.Sum(x => x.Quantity);
+								float totalPrice = cartItems.Sum(x => x.TotalPrice);
+							}
+
+							<div class="cart-dropdown">
+								<div class="cart-list">
+									@if (cartItems.Any())
+									{
+										foreach (var item in cartItems)
+										{
+											<div class="product-widget">
+												<div class="product-img">
+													<img src="@Url.Content("~/uploads/images/products/" + item.MainImage)" alt="@item.Name" />
+												</div>
+												<div class="product-body">
+													<h3 class="product-name">@item.Name</h3>
+													<h4 class="product-price"><span class="qty">@item.Quantity x</span> @item.Price.ToString("N0") ₫</h4>
+												</div>
+												<a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" class="delete">
+													<i class="fa fa-close"></i>
+												</a>
+											</div>
+										}
+									}
+									else
+									{
+										<p class="text-center text-danger">Giỏ hàng của bạn đang trống.</p>
+									}
+								</div>
+
+								<div class="cart-summary">
+									<small>@totalQuantity sản phẩm</small>
+									<h5>Tạm tính: @totalPrice.ToString("N0") ₫</h5>
+								</div>
+
+								<div class="cart-btns">
+									<a asp-controller="Cart" asp-action="Index">Xem giỏ hàng</a>
+									<a asp-controller="BillingAddress" asp-action="Checkout">Thanh toán <i class="fa fa-arrow-circle-right"></i></a>
+								</div>
+							</div>
+
+						</div>
+						<!-- /Cart -->
+						<!-- Menu Toogle -->
+						<div class="menu-toggle">
+							<a href="#">
+								<i class="fa fa-bars"></i>
+								<span>Menu</span>
+							</a>
+						</div>
+						<!-- /Menu Toogle -->
+					</div>
+				</div>
+				<!-- /ACCOUNT -->
+			</div>
+			<!-- row -->
+		</div>
+		<!-- container -->
+	</div>
+	<!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+<!-- NAVIGATION -->
+<nav id="navigation">
+	<!-- container -->
+	<div class="container">
+		<!-- responsive-nav -->
+		<div id="responsive-nav">
+			<!-- NAV -->
+			<ul class="main-nav nav navbar-nav">
+				<li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+				<li><a asp-controller="Product" asp-action="HotDeal">Hot Deals</a></li>
+				<li><a asp-controller="Product" asp-action="SmartPhone">Điện thoại thông minh</a></li>
+				<li><a asp-controller="Product" asp-action="Tablet">Máy tính bảng</a></li>
+				<li><a asp-controller="Product" asp-action="Laptop">Laptop</a></li>
+				<li><a asp-controller="Product" asp-action="SmartWatch">Đồng hồ thông minh</a></li>
+				<li><a asp-controller="Product" asp-action="EarPhone">Tai nghe</a></li>
+			</ul>
+			<!-- /NAV -->
+		</div>
+		<!-- /responsive-nav -->
+	</div>
+	<!-- /container -->
+</nav>
+<!-- /NAVIGATION -->

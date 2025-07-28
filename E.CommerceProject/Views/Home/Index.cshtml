@@ -1,0 +1,1121 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+	
+	.col-md-2-4
+	{
+		width: 20%;
+		float: left;
+		padding-left: 15px;
+		padding-right: 15px;
+		box-sizing: border-box;
+	}
+
+	.row {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+
+	.shop-img img {
+		max-width: 100%;
+		height: auto;
+	}
+
+
+	/*Wishlist*/
+	.add-to-wishlist {
+		background-color: #ffffff;
+		border: none;
+		color: #D10024;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		position: relative;
+		transition: background-color 0.2s ease;
+		font-size: 16px;
+	}
+
+		.add-to-wishlist:hover {
+			background-color: #f5f5f5;
+		}
+
+
+		.add-to-wishlist .tooltipp {
+			visibility: hidden;
+			opacity: 0;
+			position: absolute;
+			top: -30px;
+			background: #000;
+			color: #fff;
+			padding: 5px 10px;
+			font-size: 12px;
+			border-radius: 4px;
+			white-space: nowrap;
+			transition: all 0.2s ease;
+			z-index: 10;
+		}
+
+		.add-to-wishlist:hover .tooltipp {
+			visibility: visible;
+			opacity: 1;
+		}
+		/**/
+
+	.add-to-compare {
+		background-color: #ffffff;
+		border: none;
+		color: #D10024;
+		border-radius: 50%;
+		width: 40px;
+		height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		position: relative;
+		transition: background-color 0.2s ease;
+		font-size: 16px;
+	}
+
+		.add-to-compare:hover {
+			background-color: #f5f5f5;
+		}
+
+
+		.add-to-compare .tooltipp {
+			visibility: hidden;
+			opacity: 0;
+			position: absolute;
+			top: -30px;
+			background: #000;
+			color: #fff;
+			padding: 5px 10px;
+			font-size: 12px;
+			border-radius: 4px;
+			white-space: nowrap;
+			transition: all 0.2s ease;
+			z-index: 10;
+		}
+
+		.add-to-compare:hover .tooltipp {
+			visibility: visible;
+			opacity: 1;
+		}
+
+		
+</style>
+
+<!-- SECTION -->
+<div class="section">
+	@if (ViewBag.SuccessMessage != null)
+	{
+		<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+			@ViewBag.SuccessMessage
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	}
+
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- shop 1 -->
+			@foreach (var smartphone in ViewBag.Smartphones)
+			{
+				<div class="col-xs-6 col-sm-4 col-md-2-4">
+					<div class="shop">
+						<div class="shop-img">
+							<img src="@Url.Content("~/uploads/images/products/" + smartphone.MainImage)" alt="@smartphone.Name error" title="@smartphone.Name" />
+						</div>
+						<div class="shop-body">
+							<h3>Smartphone<br />Collection</h3>
+							<a asp-controller="Product" asp-action="Smartphone" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- shop 2 -->
+			@foreach (var tablet in ViewBag.Tablets)
+			{
+				<div class="col-xs-6 col-sm-4 col-md-2-4">
+					<div class="shop">
+						<div class="shop-img">
+							<img src="@Url.Content("~/uploads/images/products/" + tablet.MainImage)" alt="@tablet.Name error" title="@tablet.Name" />
+						</div>
+						<div class="shop-body">
+							<h3>Tablet<br />Collection</h3>
+							<a asp-controller="Product" asp-action="Tablet" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- shop 3 -->
+			@foreach (var laptop in ViewBag.Laptops)
+			{
+				<div class="col-xs-6 col-sm-4 col-md-2-4">
+					<div class="shop">
+						<div class="shop-img">
+							<img src="@Url.Content("~/uploads/images/products/" + laptop.MainImage)" alt="@laptop.Name error" title="@laptop.Name" />
+						</div>
+						<div class="shop-body">
+							<h3>Laptop<br />Collection</h3>
+							<a asp-controller="Product" asp-action="Laptop" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- shop 4 -->
+			@foreach (var smartwatch in ViewBag.Smartwatches)
+			{
+				<div class="col-xs-6 col-sm-4 col-md-2-4">
+					<div class="shop">
+						<div class="shop-img">
+							<img src="@Url.Content("~/uploads/images/products/" + smartwatch.MainImage)" alt="@smartwatch.Name error" title="@smartwatch.Name" />
+						</div>
+						<div class="shop-body">
+							<h3>SmartWatch<br />Collection</h3>
+							<a asp-controller="Product" asp-action="SmartWatch" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			}
+
+			<!-- shop 5 -->
+			@foreach (var earphone in ViewBag.Earphones)
+			{
+				<div class="col-xs-6 col-sm-4 col-md-2-4">
+					<div class="shop">
+						<div class="shop-img">
+							<img src="@Url.Content("~/uploads/images/products/" + earphone.MainImage)" alt="@earphone.Name error" title="@earphone.Name" />
+						</div>
+						<div class="shop-body">
+							<h3>Earphone<br />Collection</h3>
+							<a asp-controller="Product" asp-action="EarPhone" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Sản phẩm mới</h3>
+					
+				</div>
+			</div>
+			<!-- /section title -->
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab1" class="tab-pane active">
+							<div class="products-slick" data-nav="#slick-nav-1">
+								<!-- product 1-->
+								@foreach (var smartphone in ViewBag.Smartphones)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + smartphone.MainImage)" alt="@smartphone.Name" title="@smartphone.Name" />
+											<div class="product-label">
+												<span class="sale">-@(smartphone.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@smartphone.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@smartphone.Id">
+													@smartphone.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(smartphone.Price * smartphone.SalePrice)
+												<del class="product-old-price">VND @smartphone.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartphone.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartphone.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+
+
+												<button class="quick-view" onclick="location.href='/Product/Detail/@smartphone.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 1-->
+								<!-- product 2-->
+								@foreach (var tablet in ViewBag.Tablets)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + tablet.MainImage)" alt="@tablet.Name" title="@tablet.Name" />
+											<div class="product-label">
+												<span class="sale">-@(tablet.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@tablet.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@tablet.Id">
+													@tablet.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(tablet.Price * tablet.SalePrice)
+												<del class="product-old-price">VND @tablet.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-o"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@tablet.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@tablet.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+
+												<button class="quick-view" onclick="location.href='/Product/Detail/@tablet.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+
+								<!-- /product 2-->
+								<!-- product 3-->
+								@foreach (var laptop in ViewBag.Laptops)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + laptop.MainImage)" alt="@laptop.Name" title="@laptop.Name" />
+											<div class="product-label">
+												<span class="sale">-@(laptop.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@laptop.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@laptop.Id">@laptop.Name</a>
+											</h3>
+											<h4 class="product-price">
+												@(laptop.Price * laptop.SalePrice)
+												<del class="product-old-price">VND @laptop.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-o"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@laptop.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@laptop.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@laptop.Id'">
+													<i class="fa fa-eye"></i><span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 3-->
+								<!-- product 4-->
+								@foreach (var smartwatch in ViewBag.Smartwatches)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + smartwatch.MainImage)" alt="@smartwatch.Name" title="@smartwatch.Name" />
+											<div class="product-label">
+												<span class="sale">-@(smartwatch.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@smartwatch.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@smartwatch.Id">@smartwatch.Name</a>
+											</h3>
+											<h4 class="product-price">
+												@(smartwatch.Price * smartwatch.SalePrice)
+												<del class="product-old-price">VND @smartwatch.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-o"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartwatch.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartwatch.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@smartwatch.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 4-->
+								<!-- product 5-->
+								@foreach (var earphone in ViewBag.Earphones)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + earphone.MainImage)" alt="@earphone.Name" title="@earphone.Name" />
+											<div class="product-label">
+												<span class="sale">-@(earphone.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@earphone.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@earphone.Id">
+													@earphone.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(earphone.Price * earphone.SalePrice)
+												<del class="product-old-price">VND @earphone.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star-o"></i>
+											</div>
+
+											<div class="product-btns">
+												
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@earphone.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@earphone.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@earphone.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 5-->
+							</div>
+							<div id="slick-nav-1" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
+				</div>
+			</div>
+			<!-- Products tab & slick -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hot-deal">
+					<ul class="hot-deal-countdown">
+							<li>
+								<div>
+									<h3 id="days">00</h3>
+									<span>Days</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<h3 id="hours">00</h3>
+									<span>Hours</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<h3 id="minutes">00</h3>
+									<span>Mins</span>
+								</div>
+							</li>
+							<li>
+								<div>
+									<h3 id="seconds">00</h3>
+									<span>Secs</span>
+								</div>
+							</li>
+						</ul>
+					<h2 class="text-uppercase">Khuyến mãi mùa hè 2025</h2>
+					<p>Giảm giá lên tới 50% giá trị sản phẩm</p>
+					<a class="primary-btn cta-btn" asp-controller="Product" asp-action="HotDeal">Shop now</a>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /HOT DEAL SECTION -->
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- section title -->
+			<div class="col-md-12">
+				<div class="section-title">
+					<h3 class="title">Sản phẩm bán chạy</h3>
+						
+				</div>
+			</div>
+			<!-- /section title -->
+			<!-- Products tab & slick -->
+			<div class="col-md-12">
+				<div class="row">
+					<div class="products-tabs">
+						<!-- tab -->
+						<div id="tab2" class="tab-pane fade in active">
+							<div class="products-slick" data-nav="#slick-nav-2">
+								<!-- product 1-->
+								@foreach (var smartphone in ViewBag.SmartphonePrice)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + smartphone.MainImage)" alt="@smartphone.Name" title="@smartphone.Name" />
+											<div class="product-label">
+												<span class="sale">-@(smartphone.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@smartphone.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@smartphone.Id">
+													@smartphone.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(smartphone.Price * smartphone.SalePrice)
+												<del class="product-old-price">VND @smartphone.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartphone.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartphone.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@smartphone.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 1-->
+								<!-- product 2-->
+								@foreach (var tablet in ViewBag.TabletPrice)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + tablet.MainImage)" alt="@tablet.Name" title="@tablet.Name" />
+											<div class="product-label">
+												<span class="sale">-@(tablet.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@tablet.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@tablet.Id">@tablet.Name</a>
+											</h3>
+											<h4 class="product-price">
+												@(tablet.Price * tablet.SalePrice)
+												<del class="product-old-price">VND @tablet.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@tablet.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@tablet.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@tablet.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 2-->
+								<!-- product 3-->
+								@foreach (var laptop in ViewBag.LaptopPrice)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + laptop.MainImage)" alt="@laptop.Name" title="@laptop.Name" />
+											<div class="product-label">
+												<span class="sale">-@(laptop.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@laptop.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@laptop.Id">
+													@laptop.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(laptop.Price * laptop.SalePrice)
+												<del class="product-old-price">VND @laptop.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@laptop.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@laptop.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@laptop.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+
+								<!-- /product 3-->
+								<!-- product 4-->
+								@foreach (var smartwatch in ViewBag.SmartwatchPrice)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + smartwatch.MainImage)" alt="@smartwatch.Name" title="@smartwatch.Name" />
+											<div class="product-label">
+												<span class="sale">-@(smartwatch.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@smartwatch.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@smartwatch.Id">
+													@smartwatch.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(smartwatch.Price * smartwatch.SalePrice)
+												<del class="product-old-price">VND @smartwatch.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartwatch.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@smartwatch.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@smartwatch.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 4-->
+								<!-- product 5 -->
+								@foreach (var earphone in ViewBag.EarphonePrice)
+								{
+									<div class="product">
+										<div class="product-img">
+											<img src="@Url.Content("~/uploads/images/products/" + earphone.MainImage)"
+												 alt="@earphone.Name error"
+												 title="@earphone.Name"
+												 height="200" width="200" />
+											<div class="product-label">
+												<span class="sale">-@(earphone.SalePrice * 100)%</span>
+												<span class="new">NEW</span>
+											</div>
+										</div>
+
+										<div class="product-body">
+											<p class="product-category">@earphone.Category?.Name</p>
+											<h3 class="product-name">
+												<a asp-controller="Product" asp-action="Detail" asp-route-id="@earphone.Id">
+													@earphone.Name
+												</a>
+											</h3>
+											<h4 class="product-price">
+												@(earphone.Price * earphone.SalePrice)
+												<del class="product-old-price">VND @earphone.Price</del>
+											</h4>
+
+											<div class="product-rating">
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+												<i class="fa fa-star"></i>
+											</div>
+
+											<div class="product-btns">
+												<form asp-controller="WishList" asp-action="Create" method="post" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@earphone.Id" />
+													<button type="submit" class="add-to-wishlist">
+														<i class="fa fa-heart-o"></i>
+														<span class="tooltipp">Danh sách yêu thích</span>
+													</button>
+												</form>
+												<form asp-action="AddToCompare" method="post" asp-controller="Product" style="display:inline;">
+													<input type="hidden" name="ProductId" value="@earphone.Id" />
+													<button type="submit" class="add-to-compare" title="So sánh sản phẩm">
+														<i class="fa fa-exchange"></i>
+														<span class="tooltipp">So sánh</span>
+													</button>
+												</form>
+												<button class="quick-view" onclick="location.href='/Product/Detail/@earphone.Id'">
+													<i class="fa fa-eye"></i>
+													<span class="tooltipp">Chi tiết sản phẩm</span>
+												</button>
+											</div>
+										</div>
+
+										<div class="add-to-cart">
+											<button class="add-to-cart-btn">
+												<i class="fa fa-shopping-cart"></i> add to cart
+											</button>
+										</div>
+									</div>
+								}
+								<!-- /product 5-->
+							</div>
+							<div id="slick-nav-2" class="products-slick-nav"></div>
+						</div>
+						<!-- /tab -->
+					</div>
+				</div>
+			</div>
+			<!-- /Products tab & slick -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+
+			<!-- Cột 1 -->
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-3" class="products-slick-nav"></div>
+					</div>
+				</div>
+				<div class="products-widget-slick" data-nav="#slick-nav-3">
+					<div>
+						@foreach (var smartphone in ViewBag.SmartphoneList)
+						{
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="@Url.Content("~/uploads/images/products/" + smartphone.MainImage)" alt="@smartphone.Name error" title="@smartphone.Name" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@smartphone.Category.Name</p>
+									<h3 class="product-name"><a href="#">@smartphone.Name</a></h3>
+									<h4 class="product-price">@(smartphone.Price * smartphone.SalePrice) <del class="product-old-price">VND @smartphone.Price</del></h4>
+								</div>
+							</div>
+						}
+					</div>
+					<div>
+						@foreach (var tablet in ViewBag.TabletList)
+						{
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="@Url.Content("~/uploads/images/products/" + tablet.MainImage)" alt="@tablet.Name error" title="@tablet.Name" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@tablet.Category.Name</p>
+									<h3 class="product-name"><a href="#">@tablet.Name</a></h3>
+									<h4 class="product-price">@(tablet.Price * tablet.SalePrice) <del class="product-old-price">VND @tablet.Price</del></h4>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+
+			<!-- Cột 2 -->
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-4" class="products-slick-nav"></div>
+					</div>
+				</div>
+				<div class="products-widget-slick" data-nav="#slick-nav-4">
+					<div>
+						@foreach (var tablet in ViewBag.TabletList)
+						{
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="@Url.Content("~/uploads/images/products/" + tablet.MainImage)" alt="@tablet.Name error" title="@tablet.Name" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@tablet.Category.Name</p>
+									<h3 class="product-name"><a href="#">@tablet.Name</a></h3>
+									<h4 class="product-price">@(tablet.Price * tablet.SalePrice) <del class="product-old-price">VND @tablet.Price</del></h4>
+								</div>
+							</div>
+						}
+					</div>
+					<div>
+						@foreach (var laptop in ViewBag.LaptopList)
+						{
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="@Url.Content("~/uploads/images/products/" + laptop.MainImage)" alt="@laptop.Name error" title="@laptop.Name" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@laptop.Category.Name</p>
+									<h3 class="product-name"><a href="#">@laptop.Name</a></h3>
+									<h4 class="product-price">@(laptop.Price * laptop.SalePrice) <del class="product-old-price">VND @laptop.Price</del></h4>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+
+			<!-- Cột 3 -->
+			<div class="col-md-4 col-xs-6">
+				<div class="section-title">
+					<h4 class="title">Top selling</h4>
+					<div class="section-nav">
+						<div id="slick-nav-5" class="products-slick-nav"></div>
+					</div>
+				</div>
+				<div class="products-widget-slick" data-nav="#slick-nav-5">
+					<div>
+						@foreach (var laptop in ViewBag.SmartwatchList)
+						{
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="@Url.Content("~/uploads/images/products/" + laptop.MainImage)" alt="@laptop.Name error" title="@laptop.Name" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@laptop.Category.Name</p>
+									<h3 class="product-name"><a href="#">@laptop.Name</a></h3>
+									<h4 class="product-price">@(laptop.Price * laptop.SalePrice) <del class="product-old-price">VND @laptop.Price</del></h4>
+								</div>
+							</div>
+						}
+					</div>
+					<div>
+						@foreach (var laptop in ViewBag.EarphoneList)
+						{
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="@Url.Content("~/uploads/images/products/" + laptop.MainImage)" alt="@laptop.Name error" title="@laptop.Name" />
+								</div>
+								<div class="product-body">
+									<p class="product-category">@laptop.Category.Name</p>
+									<h3 class="product-name"><a href="#">@laptop.Name</a></h3>
+									<h4 class="product-price">@(laptop.Price * laptop.SalePrice) <del class="product-old-price">VND @laptop.Price</del></h4>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
+<script>
+
+	const startDate = new Date("August 1, 2025 00:00:00").getTime();
+
+
+	const countdown = setInterval(function () {
+		const now = new Date().getTime();
+		const distance = startDate - now;
+
+		
+		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		
+		document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+		document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+		document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+		document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+		
+		if (distance <= 0) {
+			clearInterval(countdown);
+			document.querySelector(".hot-deal-countdown").innerHTML = "<h3>Đang khuyến mãi!</h3>";
+		}
+	}, 1000);
+</script>

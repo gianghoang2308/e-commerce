@@ -1,0 +1,73 @@
+﻿@model E.CommerceProject.Models.Search
+
+@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2>Kết quả tìm kiếm cho: "@Model.SearchTerm"</h2>
+    <!-- Kết quả thương hiệu -->
+    @if (Model.BrandList?.Any() == true)
+    {
+        <div class="mt-4">
+            <h4>Thương hiệu</h4>
+            <div class="row">
+                @foreach (var brand in Model.BrandList)
+                {
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <img src="@Url.Content("~/uploads/brandlogos/" + brand.Logo)" alt="@brand.BrandName error" title="@brand.BrandName" width="100" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Kết quả sản phẩm -->
+    @if (Model.ProductList?.Any() == true)
+    {
+        <div class="mt-4">
+            <h4>Sản phẩm</h4>
+            <div class="row">
+                @foreach (var product in Model.ProductList)
+                {
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <img src="@Url.Content("~/uploads/images/products/" + product.MainImage)" alt="@product.Name" />
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">@product.Category.Name</p>
+                                    <h3 class="product-name">
+                                        <a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id">
+                                            @product.Name
+                                        </a>
+                                    </h3>
+                                    <h4 class="product-price">
+                                        @product.Price.ToString("C")
+                                        @if (product.SalePrice > 0)
+                                        {
+                                            <del class="product-old-price">@product.SalePrice.ToString("C")</del>
+                                        }
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
+
+    @if (Model.ProductList?.Any() != true && Model.BrandList?.Any() != true && !string.IsNullOrEmpty(Model.SearchTerm))
+    {
+        <div class="alert alert-warning mt-4">
+            Không tìm thấy kết quả phù hợp
+        </div>
+    }
+</div>

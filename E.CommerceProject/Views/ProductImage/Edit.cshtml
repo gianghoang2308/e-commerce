@@ -1,0 +1,40 @@
+﻿@model E.CommerceProject.Models.ProductImage
+
+@{
+    ViewData["Title"] = "Chỉnh sửa ảnh sản phẩm";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Chỉnh sửa ảnh sản phẩm</h2>
+    <form asp-action="Edit" asp-controller="ProductImage" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label class="form-label"><b>Ảnh hiện tại</b></label><br />
+            <img src="@Url.Content("~/uploads/images/detailimages/" + Model.Images)" alt="Model.Product?.Name ?? " No Name"" title="Model.Product?.Name" width="100" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><b>Tải ảnh mới (nếu cần)</b></label>
+            <input type="file" name="file" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"><b>Sản phẩm</b></label>
+            <select name="ProductId" class="form-select">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <option value="@product.Id">
+                        @product.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu lại</button>
+        </div>
+    </form>
+</div>

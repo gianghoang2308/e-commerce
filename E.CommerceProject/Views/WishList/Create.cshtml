@@ -1,0 +1,22 @@
+﻿@model E.CommerceProject.Models.WishList
+
+@{
+    ViewData["Title"] = "Thêm vào yêu thích";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Thêm vào Danh sách yêu thích</h2>
+
+    <form asp-action="Create" method="post">
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="form-group">
+            <label>Tên sản phẩm:</label>
+            <p class="form-control-plaintext">@ViewBag.Product?.Name</p>
+        </div>
+
+        <button type="submit" class="btn btn-danger">Thêm vào yêu thích</button>
+    </form>
+</div>

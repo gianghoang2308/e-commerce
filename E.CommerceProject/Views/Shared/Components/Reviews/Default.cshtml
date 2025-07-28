@@ -1,0 +1,48 @@
+﻿@model X.PagedList.IPagedList<E.CommerceProject.Models.Comment>
+@using X.PagedList.Mvc.Core;
+<div class="col-md-6">
+	<div id="reviews">
+		<ul class="reviews">
+			@foreach (var cmtDetail in Model)
+			{
+				<li>
+					<div class="review-heading">
+						<h5 class="name">@cmtDetail.FullName</h5>
+						<p class="date">@cmtDetail.CreateTime.ToString("dd-MM-yyyy")</p>
+						<div class="review-rating">
+							@for (int i = 1; i <= 5; i++)
+							{
+								if (i <= cmtDetail.Rate)
+								{
+									<i class="fa fa-star"></i> <!-- sao đầy -->
+								}
+								else
+								{
+									<i class="fa fa-star-o empty"></i> <!-- sao rỗng -->
+								}
+							}
+						</div>
+
+					</div>
+					<div class="review-body">
+						<p>@cmtDetail.CommentText</p>
+					</div>
+				</li>
+			}
+		</ul>
+		@Html.PagedListPager(Model, page =>
+					Url.Action("LoadReviews", "Product", new { productId = ViewBag.ProductId, pageNumber = page }),
+					new PagedListRenderOptions
+		{
+			UlElementClasses = new[] { "reviews-pagination" },
+			LiElementClasses = new[] { "page-item" },
+			PageClasses = new[] { "page-link" },
+			FunctionToDisplayEachPageNumber = (index => index.ToString()),
+			DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+			DisplayLinkToLastPage = PagedListDisplayMode.Never,
+			DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+			DisplayLinkToNextPage = PagedListDisplayMode.Always
+		})
+
+	</div>
+</div>

@@ -1,0 +1,27 @@
+﻿@model E.CommerceProject.Models.Comment
+
+<div class="col-md-3">
+    <div id="review-form">
+        <form asp-action="Create" asp-controller="Comment" method="post" class="review-form">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="UserId" />
+
+            <input class="input" asp-for="FullName" placeholder="Your Name" required />
+            <input class="input" asp-for="Email" placeholder="Your Email" required />
+            <textarea class="input" asp-for="CommentText" placeholder="Your Review" required></textarea>
+
+            <div class="input-rating">
+                <span>Your Rating: </span>
+                <div class="stars">
+                    <input id="star5" asp-for="Rate" value="5" type="radio"><label for="star5"></label>
+                    <input id="star4" asp-for="Rate" value="4" type="radio"><label for="star4"></label>
+                    <input id="star3" asp-for="Rate" value="3" type="radio"><label for="star3"></label>
+                    <input id="star2" asp-for="Rate" value="2" type="radio"><label for="star2"></label>
+                    <input id="star1" asp-for="Rate" value="1" type="radio"><label for="star1"></label>
+                </div>
+            </div>
+
+            <button class="primary-btn" type="submit">Lưu lại</button>
+        </form>
+    </div>
+</div>

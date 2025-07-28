@@ -1,0 +1,225 @@
+﻿@model E.CommerceProject.Models.Contact
+
+@{
+    ViewData["Title"] = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .contact-page {
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+        .contact-page h2.heading-section {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .contact-page .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: none;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .contact-page textarea.form-control {
+            resize: none;
+        }
+
+        .contact-page .btn-success {
+            background-color: #28a745;
+            font-weight: bold;
+            padding: 10px 20px;
+        }
+
+            .contact-page .btn-success:hover {
+                background-color: #218838;
+            }
+
+        .contact-page .dbox {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+            .contact-page .dbox .icon {
+                font-size: 24px;
+                background-color: white;
+                color: red;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .contact-page .dbox .text span {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+    .mb-3{
+        margin:20px;
+    }
+
+</style>
+
+<section class="ftco-section contact-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section" style="text-align:center; margin:20px">Liên hệ với chúng tôi</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="container">
+                        <div class="card">
+                            @if (TempData["Message"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    @TempData["Message"]
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+
+                            <form asp-controller="Home" asp-action="Contact" enctype="multipart/form-data">
+                                <div class="container">
+
+                                    <input type="hidden" class="form-control" asp-for="Id" />
+
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label"><b>Họ và tên</b></label>
+                                        <input type="text" class="form-control" asp-for="FullName" placeholder="Nhập vào họ và tên">
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label"><b>Số điện thoại</b></label>
+                                        <input type="number" class="form-control" asp-for="PhoneNumber" placeholder="Nhập vào số điện thoại">
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label"><b>Địa chỉ</b></label>
+                                        <input type="text" class="form-control" asp-for="Address" placeholder="Nhập vào địa chỉ">
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label"><b>Email</b></label>
+                                        <input type="text" class="form-control" asp-for="Email" placeholder="Nhập vào email">
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3 mt-3">
+                                        <label class="form-label"><b>Tin nhắn</b></label>
+                                        <textarea class="form-control" asp-for="Message" placeholder="Nhập vào tin nhắn"></textarea>
+                                        <span asp-validation-for="Message" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="text-end mt-4">
+                                        <button type="submit" class="btn btn-danger" style="margin:20px">
+                                            <i class="fa fa-paper-plane"></i> <b>Gửi tin nhắn</b>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    @foreach (var cf in ViewBag.Configs)
+                    {
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-map-marker text-danger"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Địa chỉ:</span> <a href="https://maps.app.goo.gl/YnxFE6LnYzxaXqYs6">@cf.Address</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-phone text-danger"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Số điện thoại:</span> <a href="tel://1234567920">@cf.Hotline</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-paper-plane text-danger"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Email:</span> <a href="https://mail.google.com/mail/u/0/#inbox">@cf.Mail1</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="dbox w-100 text-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-globe text-danger"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p><span>Website:</span> <a href="https://www.facebook.com/?locale=vi_VN">@cf.SocialLink1></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scripts -->
+<script src="~/contact/js/jquery.min.js"></script>
+<script src="~/contact/js/popper.js"></script>
+<script src="~/contact/js/bootstrap.min.js"></script>
+<script src="~/contact/js/jquery.validate.min.js"></script>
+
+<!-- Use VALID API KEY and proper loading -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_VALID_API_KEY&callback=initMap" async defer></script>
+<script src="~/contact/js/google-map.js"></script>
+<script src="~/contact/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        @if (TempData["Message"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Gửi tin nhắn thành công!',
+                        text: '@TempData["Message"]',
+                        confirmButtonText: 'OK'
+                    });
+            </text>
+        }
+    </script>
+}

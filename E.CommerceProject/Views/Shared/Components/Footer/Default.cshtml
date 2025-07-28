@@ -1,0 +1,147 @@
+﻿<!-- FOOTER -->
+<!-- NEWSLETTER -->
+<div id="newsletter" class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="newsletter">
+					<p>Sign Up for the <strong>NEWSLETTER</strong></p>
+					<form asp-action="SendMail" asp-controller="Email" method="post">
+
+						<input type="email" name="email" class="input" placeholder="Enter Your Email"
+							   onfocus="this.placeholder=''" onblur="this.placeholder='Nhập vào địa chỉ email'">
+						<button type="submit" class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+					</form>
+
+					@if (TempData["SuccessMessage"] != null)
+					{
+						<div class="alert alert-success">@TempData["SuccessMessage"]</div>
+					}
+
+					@if (TempData["ErrorMessage"] != null)
+					{
+						<div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+					}
+					@foreach (var cf in ViewBag.Configs)
+					{
+						<ul class="newsletter-follow">
+							<li>
+								<a href="@cf.SocialLink1"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li>
+								<a href="@cf.SocialLink2"><i class="fa fa-instagram"></i></a>
+							</li>
+							<li>
+								<a href="@cf.SocialLink4"><i class="fa fa-youtube"></i></a>
+							</li>
+							<li>
+								<a href="@cf.SocialLink5"><i class="fa fa-github"></i></a>
+							</li>
+
+						</ul>
+					}
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /NEWSLETTER -->
+<footer id="footer">
+
+	<!-- top footer -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-3 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-title">About Us</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+						<ul class="footer-links">
+							<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
+							<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+							<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-title">Danh mục sản phẩm</h3>
+						<ul class="footer-links">
+							<li><a asp-controller="Product" asp-action="HotDeal">Hot deals</a></li>
+							<li><a asp-controller="Product" asp-action="Tablet">Máy tính bảng</a></li>
+							<li><a asp-controller="Product" asp-action="SmartPhone">Điện thoại thông minh</a></li>
+							<li><a asp-controller="Product" asp-action="Laptop">Laptop</a></li>
+							<li><a asp-controller="Product" asp-action="EarPhone">Tai nghe</a></li>
+							<li><a asp-controller="Product" asp-action="SmartWatch">Đồng hồ thông minh</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="clearfix visible-xs"></div>
+
+				<div class="col-md-3 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-title">Information</h3>
+						<ul class="footer-links">
+							<li><a asp-controller="Home" asp-action="About">About Us</a></li>
+							<li><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="#">Orders and Returns</a></li>
+							<li><a href="#">Terms & Conditions</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-title">Service</h3>
+						<ul class="footer-links">
+							<li><a href="#">My Account</a></li>
+							<li><a asp-controller="Cart" asp-action="Index">View Cart</a></li>
+							<li><a asp-controller="WishList" asp-action="ViewWishList">Wishlist</a></li>
+							<li><a asp-controller="Order" asp-action="Index">My Order</a></li>
+							<li><a href="#">Help</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /top footer -->
+	<!-- bottom footer -->
+	<div id="bottom-footer" class="section">
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<ul class="footer-payments">
+						<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+						<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+						<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+						<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+						<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+						<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+					</ul>
+					<span class="copyright">
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					</span>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /bottom footer -->
+</footer>
+<!-- /FOOTER -->
